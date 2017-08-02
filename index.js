@@ -3,11 +3,17 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io').listen(server);
 
+if(process.env.SERVER_PORT) { 
+    var port = process.env.SERVER_PORT; 
+}
+else {
+    var port = 80; 	
+}
 
 app.use(express.static('public'));
 
-server.listen(80, function () {
-  console.log('Nifty server running on port 80!');
+server.listen(port, function () {
+  console.log('Nifty server running on port '+port+'!');
 });
 
 io.set('transports', ['websocket']);
